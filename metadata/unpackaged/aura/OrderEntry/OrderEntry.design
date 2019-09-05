@@ -1,0 +1,3 @@
+<design:component>
+    <design:attribute name="CampaignId" label="CampaignId" description="Campaign ID To be referenced" />
+</design:component>

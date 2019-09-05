@@ -1,0 +1,23 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+	<lightning:notificationsLibrary aura:id="notifLib"/><!--To use error windows-->
+
+<!--EVENTS-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+<!--ATTRIBUTES-->
+    <aura:attribute name="Product" type="ProductCollection__c"/>
+    <aura:attribute name="hasProduct" type="boolean" />
+    <aura:attribute name="fields" type="String[]" default="['IDGEARTCOMASTER__c', 'Channel__c','Collection__c','Flagexclusive__c']" />
+    
+    
+	<lightning:card title="{!v.Product.IDGEARTCOMASTER__c}" iconName="standard:product">
+        
+    <lightning:recordForm
+        recordId="{!v.Product.Id}"
+        objectApiName="ProductCollection__c"
+        fields="{!v.fields}"
+        columns="2"
+        mode="readonly"
+        RecordTypeId="0121x000000BgpNAAS"/>
+
+	</lightning:card>
+</aura:component>

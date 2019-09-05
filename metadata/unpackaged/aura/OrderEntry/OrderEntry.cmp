@@ -1,0 +1,29 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+<!--ATTRIBUTES-->
+    <aura:attribute name="PreOrderFields_BASIC" type="String[]" default="['Collection__c','Channel__c']" />
+    <aura:attribute name="PreOrderFields_CUSTOMER" type="String[]" default="['Billing__c']" />
+    <aura:attribute name="selectedAccount" type="Object" default="" />
+	<aura:handler name="change" value="{!v.selectedAccount}" action="{!c.handleValueChange}"/>
+
+    <aura:attribute name="selectedChannel" type="Object" default="" />
+	<aura:handler name="change" value="{!v.selectedChannel}" action="{!c.handleValueChange}"/>
+
+    <aura:attribute name="CampaignId" type="String" default="" />
+
+	<lightning:tabset selectedTabId="two" class="slds-box">
+		<lightning:tab label="Basic Data" id="one"  iconName="standard:article">
+			HERE Collection Info, User Info and other input. Some editable, some not
+			<c:CustomLookup objectName="Collection__c" fieldName="Name" details="['Channel__r.Name','Season__c']" label="Channel" iconName="custom:custom42" placeholder="Enter Value"  selectedRecord = "{!v.selectedChannel}"/>
+
+		</lightning:tab>
+	
+		<lightning:tab label="Customer Data" id="two" iconName="standard:account">
+			HERE Customer Data: "{!v.selectedAccount.value}"
+			<c:CustomLookup objectName="Account" fieldName="Name" details="['SAP_Code__c']" label="Account Name" iconName="standard:account" placeholder="Enter Value"  selectedRecord = "{!v.selectedAccount}"/>
+		</lightning:tab>
+		<lightning:tab label="Order Data" id="three" iconName="standard:orders">
+			HERE the Order detail data
+        </lightning:tab>
+    </lightning:tabset>
+
+</aura:component>
