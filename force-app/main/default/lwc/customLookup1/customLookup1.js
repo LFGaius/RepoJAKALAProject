@@ -3,26 +3,29 @@ import fetchRecords from '@salesforce/apex/CustomLookupController.fetchRecords';
 import { LightningElement,api,track } from 'lwc';
 
 export default class CustomLookup extends LightningElement {
-    @track objectName='';
-    @track fieldName='';
-    @track details='';
+    @api objectName='';
+    @api fieldName='';
+    @api details;
     @api value='';
-    @track recordCount=5;
+    @api recordCount=5;
     @api iconName='standard:drafts';
     @api label='';
     @track placeholder='Search..';
-    @api searchString='';
-    @api selectedRecord='';
+    @track searchString='';
+    @api selectedRecord;
     @track recordsList;
     @track message='';
 
+    @track classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open';
+    @track classSpinner='slds-hide';
 
+    
     get classLookupPill(){
         let a='slds-pill-container ';
-        if(this.selectedRecord === ''){
-            return a+'slds-hide';
+        if(this.selectedRecord){
+            return a;
         }
-        return a;
+        return a+'slds-hide';
     }
 
     get styleListBox(){
@@ -48,39 +51,60 @@ export default class CustomLookup extends LightningElement {
     get messageEmpty(){
         return this.message==='';
     }
+
+    get getToggleClassResultList(){
+        if(this.classResultDiv.includes('slds-is-open')){
+            return 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
+        }
+        
+        return 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open';
+    }
+
     connectedCallback(){
         this.doInit();
     }
 
+    
 
     doInit() {
-       this.template.querySelector('.resultsDiv').classList.toggle('slds-is-open');
-		if(!this.value) {
+        this.classResultDiv=this.getToggleClassResultList;
+		if(this.value) {
 			this.searchRecordsHelper(this.value);
 		}
     }
 
     // When a keyword is entered in search box
-	searchRecords() {
-        if(!this.searchString){
-                   this.searchRecordsHelper('');
+	searchRecords(event) {
+        this.searchString=event.target.value;
+        if(this.searchString){
+            this.searchRecordsHelper(this.searchString);
         } else {
-            this.template.querySelector('.resultsDiv').classList.remove('slds-is-open');
+            this.classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
         }
     }
     
     // When an item is selected
 	selectItem(event) {
-        if(!event.currentTarget.id) {
+        // eslint-disable-next-line no-console
+        console.log('Item selected!');
+        if(event.currentTarget.id) {
             let recordsList = this.recordsList;
-            let index = this.recordsList.findIndex(x => x.value === event.currentTarget.id);
+            let index = recordsList.findIndex(x => x.value===event.currentTarget.id.substring(0,event.currentTarget.id.indexOf('-')));
+            for(let i=0;i<recordsList.length;i++){
+                
+                     // eslint-disable-next-line no-console
+                     console.log(event.currentTarget.id+'\nI have a result!\nIt is this '+JSON.stringify(recordsList[i]));
+                 }
             let selectedRecord;
+            // eslint-disable-next-line no-console
+            console.log('The index is: '+index);
             if(index!== -1) {
                 selectedRecord = recordsList[index];
+                this.selectedRecord=selectedRecord;
+                this.value=selectedRecord.value;
             }
-            this.selectedRecord=selectedRecord;
-            this.value=selectedRecord.value;
-            this.template.querySelector('.resultsDiv').classList.remove('slds-is-open');
+            
+            this.classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
         }
     }
     
@@ -89,53 +113,53 @@ export default class CustomLookup extends LightningElement {
         this.selectedRecord='';
         this.value='';
         this.searchString='';
-
-        // eslint-disable-next-line @lwc/lwc/no-async-operation
-        setTimeout( function() {
-            this.template.querySelector('.inputLookup' ).focus();
-        }, 250);
     }
     
     searchRecordsHelper(value) {
-        this.template.querySelector('.Spinner').classList.remove('slds-hide');
+        // eslint-disable-next-line no-console
+        console.log('In search method!');
+        this.classSpinner='slds-show';
         this.message='';
         this.recordsList=null;
+        // eslint-disable-next-line no-console
+        console.log('Elements for search: '+this.objectName+' '+this.fieldName+' '+this.searchString+' '+this.details);
         // Calling Apex Method
-        fetchRecords({objectName :this.objectName,
-        filterField: this.fieldName,
-        searchString: this.searchString,
-        details: this.details})
+        fetchRecords({objectName:this.objectName,filterField:this.fieldName,searchString:this.searchString,details:this.details})
         .then(result=>{
+            // // eslint-disable-next-line no-console
+            // console.log('I have a result!'+result.length);
+            // for(let i=0;i<result.length;i++){
+            //     // eslint-disable-next-line no-console
+            //     console.log('I have a result!\nIt is this '+JSON.stringify(result));
+            // }
             if(result.length > 0) {
                 // To check if value attribute is prepopulated or not
-                if(!value) {
-                    this.recordsList=result;        
-                } else {
-                    let index = result.findIndex(x => x.value === value);
-                    let selectedRecord;
-                    if(index !== -1) {
-                        selectedRecord = result[index];
-                    }
-                    this.selectedRecord=selectedRecord;
+                if(value) {
+                    this.recordsList=result;
                 }
             } else {
                 this.message='No Records Found';
             }
-            
+            this.classSpinner='slds-hide';
+            // eslint-disable-next-line no-console
+            console.log('Until here, all is good!');
         }).catch(error=>{
+            // eslint-disable-next-line no-console
+            console.log('I have an error!\n'+JSON.stringify(error));
             if (error && error[0] && error[0].message) {
                 this.message=error[0].message;
             }
+            this.classSpinner='slds-hide';
         });
         // To open the drop down list of records
-        if(!value)
-            this.template.querySelector('.resultsDiv').classList.add('slds-is-open');
-        this.template.querySelector('.Spinner').classList.add('slds-hide');
+        if(value)
+            this.classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open';
+        
     }
     
     // To close the dropdown if clicked outside the dropdown.
     blurEvent(){
-        this.template.querySelector('.resultsDiv').classList.remove('slds-is-open');
+        //this.classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
     }
 
 }

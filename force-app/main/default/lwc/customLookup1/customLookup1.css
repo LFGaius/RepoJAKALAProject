@@ -1,0 +1,34 @@
+.verticalAlign {
+	cursor: pointer;
+	margin: 6px 0px 0px 6px!important;
+}
+
+.fullWidth {
+	width: 100% !important;
+}
+
+.recordListBox {
+	margin-top:0px !important;
+	overflow-y: scroll;
+}
+
+.inputBox input {
+	padding-left: 30px;
+}
+
+.inputIcon {
+	z-index: 99;
+}
+
+/* For Scrolling */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+   display: none !important;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.4);
+}

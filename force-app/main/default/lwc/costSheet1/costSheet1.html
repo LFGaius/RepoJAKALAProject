@@ -1,0 +1,72 @@
+<template>
+    <lightning-record-view-form
+                record-id={recordId}
+                object-api-name="Cost_Sheet__c">
+        <div class="slds-scope">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+              <thead>
+                <tr class="slds-line-height_reset">
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Lungh. Catena (m.)">Lungh. Catena (m.)</div>
+                  </th>
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Tot. Costo Commerciale">Tot. Costo Commerciale</div>
+                  </th>
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Tot. Costo Listino">Tot. Costo Listino</div>
+                  </th>
+                  <th class="" scope="col">
+                    <div class="slds-truncate" title="Tot. Fissi">Tot. Fissi</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="slds-hint-parent">
+                  <th data-label="Lungh. Catena (m.)" scope="row">
+                    <div class="slds-truncate" title="">STD (<lightning-output-field variant="label-hidden" field-name="Qtstd__c" style="display:inline-block;"></lightning-output-field>)</div>
+                  </th>
+                  <td data-label="Tot. Costo Commerciale">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qtstd__c"></lightning-output-field></div>
+                  </td>
+                  <td data-label="Tot. Costo Listino">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qtstd__c"></lightning-output-field></div><!--Must implementa additiona fields-->
+                  </td>
+                  <td data-label="Tot. Fissi">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totfisab_qtstd__c"></lightning-output-field></div>
+                  </td>
+                </tr>
+                
+                <tr class="slds-hint-parent">
+                  <th data-label="Lungh. Catena (m.)" scope="row">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Qt1__c"></lightning-output-field></div>
+                  </th>
+                  <td data-label="Tot. Costo Commerciale">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qt1__c"></lightning-output-field></div>
+                  </td>
+                  <td data-label="Tot. Costo Listino">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qt1__c"></lightning-output-field></div><!--Must implementa additiona fields-->
+                  </td>
+                  <td data-label="Tot. Fissi">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totfisab_qt1__c"></lightning-output-field></div>
+                  </td>
+                </tr>
+                
+                <tr class="slds-hint-parent">
+                  <th data-label="Lungh. Catena (m.)" scope="row">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Qt2__c"></lightning-output-field></div>
+                  </th>
+                  <td data-label="Tot. Costo Commerciale">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qt2__c"></lightning-output-field></div>
+                  </td>
+                  <td data-label="Tot. Costo Listino">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totscheda_qt2__c"></lightning-output-field></div><!--Must implementa additiona fields-->
+                  </td>
+                  <td data-label="Tot. Fissi">
+                    <div class="slds-truncate" title=""><lightning-output-field variant="label-hidden" field-name="Totfisab_qt2__c"></lightning-output-field></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </lightning-record-view-form>
+</template>
