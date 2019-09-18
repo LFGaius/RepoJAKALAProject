@@ -6,14 +6,16 @@
 		    <div class="slds-combobox_container">
 			    <div class={classResultDiv} aria-expanded="true" aria-haspopup="listbox" role="combobox">
 			        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+						<template if:true={selectedRecordBool}>
 						<div id="lookup-pill" class={classLookupPill}>
 							<!-- Selected Value Pill -->
 							<lightning-icon icon-name={iconName} alternative-text="icon"></lightning-icon>
 		                    <lightning-pill class="fullWidth"  label={selectedRecord.label} name={selectedRecord.value} onremove={removeItem}></lightning-pill>
-		                </div>
+						</div>
+						</template>
 
 		                <div id="lookupField" class={classOfLookupField}>
-					        <lightning-input type="search" label={labelSearchInput} data-id="inputLookup" id="combobox-id-1" role="textbox" placeholder={placeholder} onkeyup={searchRecords} value={searchString} onblur={blurEvent} aria-controls="listbox-id-1" auto-complete="off"></lightning-input>
+					        <lightning-input type="search" label={labelSearchInput} data-id="inputLookup" id="combobox-id-1" role="textbox" placeholder={placeholder} onkeyup={searchRecords} value={searchString} onblur={blurEvent} aria-controls="listbox-id-1" autocomplete="off"></lightning-input>
 					        <lightning-spinner class={classSpinner} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
 					    </div>
 			        </div>

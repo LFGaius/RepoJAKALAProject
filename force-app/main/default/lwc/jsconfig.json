@@ -3,14 +3,20 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
+            "c/combobox": [
+                "combobox/combobox.js"
+            ],
+            "c/costSheet1": [
+                "costSheet1/costSheet1.js"
+            ],
             "c/customLookup1": [
                 "customLookup1/customLookup1.js"
             ],
             "c/orderEntry1": [
                 "orderEntry1/orderEntry1.js"
             ],
-            "c/costSheet1": [
-                "costSheet1/costSheet1.js"
+            "c/preOrder": [
+                "preOrder/preOrder.js"
             ]
         }
     },

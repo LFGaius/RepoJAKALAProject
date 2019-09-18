@@ -10,9 +10,10 @@ export default class CustomLookup extends LightningElement {
     @api recordCount=5;
     @api iconName='standard:drafts';
     @api label='';
-    @track placeholder='Search..';
+    @api placeholder='Search..';
     @track searchString='';
     @api selectedRecord;
+    @api selectedRecordBool=false;
     @track recordsList;
     @track message='';
 
@@ -102,6 +103,7 @@ export default class CustomLookup extends LightningElement {
                 selectedRecord = recordsList[index];
                 this.selectedRecord=selectedRecord;
                 this.value=selectedRecord.value;
+                this.selectedRecordBool=true;
             }
             
             this.classResultDiv='slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click';
@@ -113,6 +115,7 @@ export default class CustomLookup extends LightningElement {
         this.selectedRecord='';
         this.value='';
         this.searchString='';
+        this.selectedRecordBool=false;
     }
     
     searchRecordsHelper(value) {

@@ -3,18 +3,18 @@
 	<!--aura:handler name="change" value="{!v.selectedAccount}" action="{!c.handleValueChange}"/>
 	<aura:handler name="change" value="{!v.selectedChannel}" action="{!c.handleValueChange}"/-->
 
-	<lightning-tabset selected-tab-id="two" class="slds-box">
-		<lightning-tab label="Basic Data" id="one"  icon-name="standard:article">
+	<lightning-tabset active-tab-value="two">
+		<lightning-tab label="Basic Data" value="one"  icon-name="standard:article">
 			HERE Collection Info, User Info and other input. Some editable, some not
 			<c-custom-lookup1 object-name="Collection__c" field-name="Name" details="['Channel__r.Name','Season__c']" label="Channel" icon-name="custom:custom42" placeholder="Enter Value"  selected-record={selectedChannel}></c-custom-lookup1>
 
 		</lightning-tab>
 	
-		<lightning-tab label="Customer Data" id="two" icon-name="standard:account">
+		<lightning-tab label="Customer Data" value="two" icon-name="standard:account">
 			HERE Customer Data: "{selectedAccount.value}"
 			<c-custom-lookup1 object-name="Account" field-name="Name" details="['SAP_Code__c']" label="Account Name" icon-name="standard:account" placeholder="Enter Value"  selected-record={selectedAccount}></c-custom-lookup1>
 		</lightning-tab>
-		<lightning-tab label="Order Data" id="three" icon-name="standard:orders">
+		<lightning-tab label="Order Data" value="three" icon-name="standard:orders">
 			HERE the Order detail data
         </lightning-tab>
     </lightning-tabset>
